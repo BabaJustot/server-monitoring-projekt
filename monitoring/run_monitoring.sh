@@ -3,28 +3,23 @@
 # ──────────────────────────────────────────────────────────────
 # run_monitoring.sh
 # Ruft per SSH das Powershell-Skript auf dem Windows-Server ab,
-# loggt die Ausgabe mit Zeitstempel und zeigt zuletzt X Abrufe.
+# loggt die Ausgabe mit Zeitstempel und zeigt zuletzt X vollständige Abrufe.
 # ──────────────────────────────────────────────────────────────
 
-# SSH-Zugangsdaten
 USER="Server01"
 SERVER="192.168.178.176"
 PASSWORD="1234"
 
-# Log-Datei
 LOG_FILE="$HOME/server-monitoring-projekt/logs/server_monitoring.log"
+NUM_LINES=${1:-10}  # Anzahl Abrufe, Standard 10
 
-# Anzahl der anzuzeigenden Abrufe (Standard: 10)
-NUM_BLOCKS=${1:-3}
-
-# Vorbedingung: sshpass installiert?
-if ! command -v sshpass &> /dev/null; then
-  echo -e "\e[31mFehler:\e[0m sshpass nicht gefunden. Installiere es mit:"
-  echo "  sudo apt-get update && sudo apt-get install sshpass"
+# sshpass prüfen
+if ! command -v sshpass &>/dev/null; then
+  echo -e "\e[31mFehler:\e[0m sshpass nicht gefunden. Bitte installieren: sudo apt-get install sshpass"
   exit 1
 fi
 
-# Log-Verzeichnis und Datei sicherstellen
+# Log-Verzeichnis + Datei sicherstellen
 mkdir -p "$(dirname "$LOG_FILE")"
 touch "$LOG_FILE"
 
@@ -32,38 +27,43 @@ touch "$LOG_FILE"
 TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S')
 echo -e "\n$TIMESTAMP - START neuer Abruf" >> "$LOG_FILE"
 
-sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no \
-  "$USER@$SERVER" \
-  'powershell -File C:\Users\Server01\Documents\get_systems_info.ps1' \
-  >> "$LOG_FILE"
+sshpass -p "$PASSWORD" ssh -o StrictHostKeyChecking=no "$USER@$SERVER" \
+  'powershell -File C:\Users\Server01\Documents\get_systems_info.ps1' >> "$LOG_FILE"
 
-# Ausgabe: letzte NUM_BLOCKS vollständige Abrufe
-start_lines=$(grep -n "START neuer Abruf" "$LOG_FILE" | cut -d: -f1)
-total_starts=$(echo "$start_lines" | wc -l)
+# Anzahl aller Abrufe im Log zählen
+total=$(grep -c '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\} [0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\} - START neuer Abruf' "$LOG_FILE")
 
-# Wenn angefragte Anzahl größer als vorhanden, anpassen
-if [ "$NUM_BLOCKS" -gt "$total_starts" ]; then
-  NUM_BLOCKS=$total_starts
+# Anzahl zum Anzeigen bestimmen (max total)
+num_show=$NUM_LINES
+if (( total < NUM_LINES )); then
+  num_show=$total
 fi
 
-echo -e "\n\e[32mLetzte $NUM_BLOCKS von $total_starts vollständigen Abrufen:\e[0m"
+echo -e "\n\e[32mLetzte $num_show von $total vollständigen Abrufen:\e[0m"
 
-starts_to_show=$(echo "$start_lines" | tail -n "$NUM_BLOCKS")
+# Ausgabe der letzten num_show vollständigen Abrufe
+# Wir lesen den Log rückwärts, splitten die Blöcke, und zeigen die letzten an
 
-mapfile -t lines <<< "$starts_to_show"
-total_lines=$(wc -l < "$LOG_FILE")
+# grep alle Start-Zeilen mit Zeilennummer
+mapfile -t start_lines < <(grep -n '^[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\} [0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\} - START neuer Abruf' "$LOG_FILE" | cut -d: -f1)
 
-for ((i=0; i<${#lines[@]}; i++)); do
-  start=${lines[$i]}
-  if [ $((i+1)) -lt ${#lines[@]} ]; then
-    end=$(( ${lines[$((i+1))]} - 1 ))
+if (( ${#start_lines[@]} == 0 )); then
+  echo "Keine Abrufe gefunden."
+  exit 0
+fi
+
+# Wir holen die letzten num_show Startzeilen
+start_lines=("${start_lines[@]: -$num_show}")
+
+# Für jede Startlinie den Block bis zur nächsten Startlinie oder Dateiende extrahieren
+for ((i=0; i<${#start_lines[@]}; i++)); do
+  start_line=${start_lines[i]}
+  if (( i == ${#start_lines[@]} - 1 )); then
+    # letzte Startlinie → bis Ende Datei
+    sed -n "${start_line},\$p" "$LOG_FILE"
   else
-    end=$total_lines
+    next_start_line=${start_lines[i+1]}
+    sed -n "${start_line},$((next_start_line - 1))p" "$LOG_FILE"
   fi
-
-  echo -e "\033[36m========================================\033[0m"
-  sed -n "${start},${end}p" "$LOG_FILE"
+  echo -e "========================================"
 done
-
-echo ""
-

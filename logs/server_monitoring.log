@@ -94,3 +94,71 @@ RAM_Total:4095.55
 Processes:141
 Disk_Used:29.04
 Disk_Total:49.41
+
+2025-06-26 16:09:42 - START neuer Abruf
+
+2025-06-26 16:10:01 - START neuer Abruf
+
+2025-06-26 16:10:30 - START neuer Abruf
+CPU:1
+RAM_Used:1997.84
+RAM_Total:4095.55
+Processes:145
+Disk_Used:29.06
+Disk_Total:49.41
+
+2025-06-26 16:11:22 - START neuer Abruf
+CPU:0
+RAM_Used:2021.91
+RAM_Total:4095.55
+Processes:144
+Disk_Used:29.06
+Disk_Total:49.41
+
+2025-06-26 16:11:33 - START neuer Abruf
+CPU:0
+RAM_Used:2015.83
+RAM_Total:4095.55
+Processes:144
+Disk_Used:29.06
+Disk_Total:49.41
+
+2025-06-26 16:13:59 - START neuer Abruf
+CPU:9
+RAM_Used:1993.98
+RAM_Total:4095.55
+Processes:142
+Disk_Used:29.06
+Disk_Total:49.41
+
+2025-06-26 16:14:04 - START neuer Abruf
+CPU:10
+RAM_Used:1994.42
+RAM_Total:4095.55
+Processes:142
+Disk_Used:29.06
+Disk_Total:49.41
+
+2025-06-26 16:20:42 - START neuer Abruf
+CPU:2
+RAM_Used:1942.16
+RAM_Total:4095.55
+Processes:138
+Disk_Used:29.06
+Disk_Total:49.41
+
+2025-06-26 16:20:50 - START neuer Abruf
+CPU:8
+RAM_Used:1942.24
+RAM_Total:4095.55
+Processes:138
+Disk_Used:29.06
+Disk_Total:49.41
+
+2025-06-26 16:23:25 - START neuer Abruf
+CPU:11
+RAM_Used:1976.45
+RAM_Total:4095.55
+Processes:141
+Disk_Used:29.06
+Disk_Total:49.41
