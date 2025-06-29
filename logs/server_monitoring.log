@@ -1,41 +1,4 @@
-
-2025-06-25 03:45:02 - START neuer Abruf
-CPU:3
-RAM_Used:2036.88
-RAM_Total:4095.55
-Processes:134
-Disk_Used:29.01
-Disk_Total:49.41
-
-2025-06-26 15:47:05 - START neuer Abruf
-CPU:0
-RAM_Used:1829.87
-RAM_Total:4095.55
-Processes:129
-Disk_Used:29.02
-Disk_Total:49.41
-
-2025-06-26 15:47:45 - START neuer Abruf
-CPU:69
-RAM_Used:1854.98
-RAM_Total:4095.55
-Processes:134
-Disk_Used:29.02
-Disk_Total:49.41
-
-2025-06-26 15:47:52 - START neuer Abruf
-CPU:20
-RAM_Used:1859.83
-RAM_Total:4095.55
-Processes:130
-Disk_Used:29.02
-Disk_Total:49.41
-
-2025-06-26 15:51:22 - START neuer Abruf
-CPU:3
-RAM_Used:1781.88
-RAM_Total:4095.55
-Processes:129
+esses:129
 Disk_Used:29.02
 Disk_Total:49.41
 
@@ -81,84 +44,75 @@ Disk_Total:49.41
 
 2025-06-26 15:58:25 - START neuer Abruf
 CPU:6
-RAM_Used:2007.75
-RAM_Total:4095.55
-Processes:141
-Disk_Used:29.04
-Disk_Total:49.41
+1 - 2025-06-30 00:44:49
+CPU:16.7
+RAM_Used:194
+RAM_Total:7821
+Processes:167
+Disk_Used:2.2
+Disk_Total:29
 
-2025-06-26 15:59:15 - START neuer Abruf
-CPU:32
-RAM_Used:1985.31
-RAM_Total:4095.55
-Processes:141
-Disk_Used:29.04
-Disk_Total:49.41
+2 - 2025-06-30 00:44:54
+CPU:9.1
+RAM_Used:195
+RAM_Total:7821
+Processes:167
+Disk_Used:2.2
+Disk_Total:29
 
-2025-06-26 16:09:42 - START neuer Abruf
+3 - 2025-06-30 00:44:58
+CPU:0.0
+RAM_Used:197
+RAM_Total:7821
+Processes:167
+Disk_Used:2.2
+Disk_Total:29
 
-2025-06-26 16:10:01 - START neuer Abruf
+4 - 2025-06-30 00:45:01
+CPU:11.1
+RAM_Used:199
+RAM_Total:7821
+Processes:167
+Disk_Used:2.2
+Disk_Total:29
 
-2025-06-26 16:10:30 - START neuer Abruf
-CPU:1
-RAM_Used:1997.84
-RAM_Total:4095.55
-Processes:145
-Disk_Used:29.06
-Disk_Total:49.41
+5 - 2025-06-30 00:45:02
+CPU:0.0
+RAM_Used:198
+RAM_Total:7821
+Processes:167
+Disk_Used:2.2
+Disk_Total:29
 
-2025-06-26 16:11:22 - START neuer Abruf
-CPU:0
-RAM_Used:2021.91
-RAM_Total:4095.55
-Processes:144
-Disk_Used:29.06
-Disk_Total:49.41
+6 - 2025-06-30 00:45:13
+CPU:11.1
+RAM_Used:198
+RAM_Total:7821
+Processes:167
+Disk_Used:2.2
+Disk_Total:29
 
-2025-06-26 16:11:33 - START neuer Abruf
-CPU:0
-RAM_Used:2015.83
-RAM_Total:4095.55
-Processes:144
-Disk_Used:29.06
-Disk_Total:49.41
+7 - 2025-06-30 00:45:15
+CPU:25.0
+RAM_Used:199
+RAM_Total:7821
+Processes:167
+Disk_Used:2.2
+Disk_Total:29
 
-2025-06-26 16:13:59 - START neuer Abruf
-CPU:9
-RAM_Used:1993.98
-RAM_Total:4095.55
-Processes:142
-Disk_Used:29.06
-Disk_Total:49.41
+8 - 2025-06-30 00:45:17
+CPU:0.0
+RAM_Used:200
+RAM_Total:7821
+Processes:167
+Disk_Used:2.2
+Disk_Total:29
 
-2025-06-26 16:14:04 - START neuer Abruf
-CPU:10
-RAM_Used:1994.42
-RAM_Total:4095.55
-Processes:142
-Disk_Used:29.06
-Disk_Total:49.41
+9 - 2025-06-30 00:45:19
+CPU:0.0
+RAM_Used:200
+RAM_Total:7821
+Processes:167
+Disk_Used:2.2
+Disk_Total:29
 
-2025-06-26 16:20:42 - START neuer Abruf
-CPU:2
-RAM_Used:1942.16
-RAM_Total:4095.55
-Processes:138
-Disk_Used:29.06
-Disk_Total:49.41
-
-2025-06-26 16:20:50 - START neuer Abruf
-CPU:8
-RAM_Used:1942.24
-RAM_Total:4095.55
-Processes:138
-Disk_Used:29.06
-Disk_Total:49.41
-
-2025-06-26 16:23:25 - START neuer Abruf
-CPU:11
-RAM_Used:1976.45
-RAM_Total:4095.55
-Processes:141
-Disk_Used:29.06
-Disk_Total:49.41
