@@ -11,33 +11,45 @@ else
     number=$((last_number + 1))
 fi
 
-# Systemdaten auslesen
-cpu=$(top -bn1 | grep "Cpu(s)" | awk '{print $2}' | tr -d ',')
-[ -z "$cpu" ] && cpu="-"
+# CPU-Auslastung in Prozent (100 - idle)
+cpu_idle=$(top -bn1 | grep "Cpu(s)" | awk -F'id,' '{ print $1 }' | awk '{print $NF}')
+if [ -n "$cpu_idle" ]; then
+    cpu=$(echo "scale=1; 100 - $cpu_idle" | bc)
+else
+    cpu="-"
+fi
 
+# RAM in MB
 ram_used=$(free -m | awk '/Mem:/ {print $3}')
 [ -z "$ram_used" ] && ram_used="-"
 
 ram_total=$(free -m | awk '/Mem:/ {print $2}')
 [ -z "$ram_total" ] && ram_total="-"
 
+# Prozesse
 processes=$(ps aux | wc -l)
 [ -z "$processes" ] && processes="-"
 
-disk_used=$(df -h / | awk 'NR==2 {print $3}' | tr -d 'G')
-[ -z "$disk_used" ] && disk_used="-"
+# Disk in GB, auf ganze Zahl runden
+disk_used_bytes=$(df / | awk 'NR==2 {print $3}')   # in KB
+disk_total_bytes=$(df / | awk 'NR==2 {print $2}')  # in KB
 
-disk_total=$(df -h / | awk 'NR==2 {print $2}' | tr -d 'G')
-[ -z "$disk_total" ] && disk_total="-"
+if [ -n "$disk_used_bytes" ] && [ -n "$disk_total_bytes" ]; then
+    disk_used=$(( (disk_used_bytes + 1023*1024) / (1024*1024) ))  # Umrechnung KB -> GB, aufrunden
+    disk_total=$(( (disk_total_bytes + 1023*1024) / (1024*1024) ))
+else
+    disk_used="-"
+    disk_total="-"
+fi
 
-# In Logdatei schreiben
+# Ausgabe in Logdatei mit Einheiten
 echo "$number - $(date '+%Y-%m-%d %H:%M:%S')" >> "$logfile"
-echo "CPU:$cpu" >> "$logfile"
-echo "RAM_Used:$ram_used" >> "$logfile"
-echo "RAM_Total:$ram_total" >> "$logfile"
-echo "Processes:$processes" >> "$logfile"
-echo "Disk_Used:$disk_used" >> "$logfile"
-echo "Disk_Total:$disk_total" >> "$logfile"
+echo "CPU: ${cpu}%" >> "$logfile"
+echo "RAM_Used: ${ram_used}MB" >> "$logfile"
+echo "RAM_Total: ${ram_total}MB" >> "$logfile"
+echo "Processes: $processes" >> "$logfile"
+echo "Disk_Used: ${disk_used}GB" >> "$logfile"
+echo "Disk_Total: ${disk_total}GB" >> "$logfile"
 echo "" >> "$logfile"
 
 # Die letzten 5 anzeigen
